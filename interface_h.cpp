@@ -107,7 +107,7 @@ int human::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 	    ret_val=card_choose(choose,choose_cnt,true);
 	    break;
 
-	case 3:
+	case 3: // buy card
 	    cout << "Welche Karte wollen Sie kaufen? " << endl;
 	    cout << "Sie haben zur Auswahl: " << endl;
 	    ret_val=card_choose(choose,choose_cnt,true);
@@ -116,6 +116,18 @@ int human::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 	    } else {
 		cout << "Sie haben " << choose[ret_val]->name << " gekauft. Es sind noch " << choose[ret_val]->stack-1 << " Karten übrig." << endl;
 	    }
+	    break;
+
+	case 4: //cards played with
+	    cout << "Es wird gespielt mit: " << endl;;
+	    for (int i=0; i< choose_cnt; i++){
+		cout << choose[i]->name << ", ";
+		switch (i){
+		    case 2:
+		    case 6:cout << endl;
+		}
+	    }
+	    cout << endl;
 	    break;
 
 	case 71: //enemy taken card
@@ -157,10 +169,32 @@ int human::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
     return ret_val;
 }
 
-void human::notify(int type, int info){
+void human::notify(int type, int info, int info1, int info2){
     switch (type){
 	case 1: //money amount
 	    cout << "Sie haben " << info << " Geld." << endl;
+	    break;
+	case 2: //number Player
+	    cout << "Es spielen " << info << " Spieler." << endl;
+	    break;
+	case 3: //turn Player
+	    cout << endl << endl <<"Spieler " << info << " ist an der Reihe." << endl;
+	    break;
+	case 4: //end
+	    cout << endl << endl;
+	    for (int i=0; i< 20; i++){
+		cout << "===" ;
+	    }
+	    cout << endl << "Das Spiel ist zu ende." << endl << endl;
+	    break;
+	case 5: //winner
+	    cout << "Spieler " << info << " hat gewonnen!" << endl;
+	    break;
+	case 6: //points
+	    cout << endl << "Spieler " << info << " hat " << info1 << " Punkte." << endl;
+	    break;
+	case 7: //money other player
+	    cout << "Der Spieler hat " << info << " Geld." << endl;
 	    break;
     }
 }

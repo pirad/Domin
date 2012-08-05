@@ -1,5 +1,5 @@
 #include "interface.h"
-#include <iostream>
+//#include <iostream>
 /*braucht einen bot und interface_r
  * muss diese dann kopieren und den Ausgang des Spieles bestimmen
  * dafür brauche ich eine Kopierfunktion von bot und interface_r
@@ -91,7 +91,7 @@ int monte::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
     return retval;
 }
 
-void monte::notify (int type, int info){
+void monte::notify (int type, int info, int info1, int info2){
     return; 
 }
 

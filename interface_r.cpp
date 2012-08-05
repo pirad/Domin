@@ -38,7 +38,7 @@ int random::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
     return retval;
 }
 
-void random::notify (int type, int info){
+void random::notify (int type, int info, int info1, int info2){
     return; 
 }
 

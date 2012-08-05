@@ -12,7 +12,7 @@ class interface{
     public:
 	virtual ~interface() { };
 	virtual int interact(int type, card * choose[STACK_SIZE], int choose_cnt)=0;
-	virtual void notify(int type, int info)=0;
+	virtual void notify(int type, int info=0, int info1=0, int info2=0)=0;
 };
 
 class interface_factory{
@@ -26,7 +26,7 @@ class human: public interface{
  *implemented in interface_h.cpp*/
     public:
 	int interact (int type, card * choose[STACK_SIZE], int choose_cnt);
-	void notify(int type, int info);
+	void notify(int type, int info=0, int info1=0, int info2=0);
 
 };
 
@@ -35,7 +35,7 @@ class computer: public interface{
  * implemented in interface_c.cpp*/
     public:
 	int interact (int type, card * choose[STACK_SIZE], int choose_cnt);
-	void notify(int type, int info);
+	void notify(int type, int info=0, int info1=0, int info2=0);
 
 	computer(void);
 
@@ -46,7 +46,7 @@ class random: public interface{
  * implemented in interface_r.cpp*/
     public:
 	int interact (int type, card * choose[STACK_SIZE], int choose_cnt);
-	void notify(int type, int info);
+	void notify(int type, int info=0, int info1=0, int info2=0);
 
 	random(void);
 
@@ -57,7 +57,7 @@ class earl: public interface{
  * implemented in interface_e.cpp*/
     public:
 	int interact (int type, card * choose[STACK_SIZE], int choose_cnt);
-	void notify(int type, int info);
+	void notify(int type, int info=0, int info1=0, int info2=0);
 
 	earl(void);
 

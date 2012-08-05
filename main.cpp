@@ -2,7 +2,6 @@
 #define ANZ_CARDS 17
 #endif
 
-#include <iostream>
 #include "bot.h"
 #include "card.h"
 

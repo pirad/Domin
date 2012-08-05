@@ -1,7 +1,7 @@
 #include "interface.h"
 #include <stdlib.h>
 #include <time.h>
-#include <iostream>
+//#include <iostream>
 
 
 using namespace std;
@@ -31,7 +31,6 @@ int computer::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 	    int max;
 	    int stelle;
 	    int tausch;
-	    cout << "initialisiert ";
 	    for (int i=0; i< choose_cnt-1; i++){
 		max=-1;
 		stelle=-1;
@@ -45,7 +44,6 @@ int computer::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 		sort[i]=sort[stelle];
 		sort[stelle]=tausch;
 	    }
-	    cout << "sortiert1 ";
 	    for (int i=0; i< choose_cnt-1; i++){
 		max=-10;
 		stelle=-1;
@@ -59,7 +57,6 @@ int computer::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 		sort[i]=sort[stelle];
 		sort[stelle]=tausch;
 	    }
-	    cout << "sortiert2 ";
 	    for (int i=0; i< choose_cnt-1; i++){
 		max=-1;
 		stelle=-1;
@@ -73,7 +70,6 @@ int computer::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 		sort[i]=sort[stelle];
 		sort[stelle]=tausch;
 	    }
-	    cout << "sortiert 3" << endl;
 
 	    retval=sort[0];
 	    break;
@@ -89,7 +85,7 @@ int computer::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
     return retval;
 }
 
-void computer::notify (int type, int info){
+void computer::notify (int type, int info, int info1, int info2){
     return; 
 }
 

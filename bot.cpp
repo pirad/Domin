@@ -1,6 +1,6 @@
 /*bot is the referee for the game. it calls the players. it manages the turns*/
 
-#include <iostream>
+//#include <iostream>
 #include "bot.h"
 
 using namespace std;
@@ -44,23 +44,17 @@ void bot::init(card * deskgeg[25],int deskgeg_cnt){
 
 void bot::run(void){
 /*run manages the game and finds the winner*/
-    //the turns
-    cout << "Es spielen " << player_cnt << " Spieler." << endl;
-    cout << "Es wird gespielt mit: " << endl;;
-    for (int i=0; i< desk_cnt; i++){
-	cout << desk[i]->name << ", ";
-	switch (i){
-	    case 2:
-	    case 6:cout << endl;
-	}
+    notify(2,player_cnt);
+    for (int i=0; i<player_cnt; i++){
+	all_players[i].decision->interact(4,desk,desk_cnt);
     }
-    cout << endl;
+    //the turns
     while (! game_end){
 	for (int j=0; j<player_cnt; j++){
 	    if (! game_end){
 		akt_player = &all_players[j];
 	        akt_player_ind = j;
-		cout << endl << endl <<"Spieler " << j << " ist an der Reihe." << endl;
+		notify(3,j);
 		turn();
 	    }
 	}
@@ -97,27 +91,26 @@ void bot::end_game(void){
 	end_points[i]=end_points[stelle];
 	end_points[stelle]=tausch;
     }
-    cout << endl << endl;
-    for (int i=0; i< 20; i++){
-	cout << "===" ;
-    }
-    cout << endl << endl;
+    notify(4);
     if (end_points[0]>end_points[1]){
-	cout << "Spieler " << rang[0] << " hat gewonnen." << endl;
+	notify(5,rang[0]);
     } else {
-	cout << "Spieler " << rang[0];
+	notify(5,rang[0]);
 	int i=1;
 	do{
-	    cout << " und Spieler " << rang[i];
+	    notify(5,rang[i]);
 	} while (end_points[i] == end_points[i++] && i<player_cnt);
-	cout << " haben gewonnen." << endl;
     }
-    cout << endl;
     for (int i=0; i< player_cnt; i++){
-	cout << "Spieler " << rang[i] << " hat " << end_points[i] << " Punkte." << endl;
+	notify(6,rang[i],end_points[i]);
     }
 }
 
+void bot::notify(int type, int info, int info1, int info2){
+    for (int i=0; i< player_cnt; i++){
+	all_players[i].decision->notify(type, info, info1, info2);
+    }
+}
 
 bool bot::turn(void){
 /*a turn of one player, should return false when game ended*/
@@ -144,7 +137,7 @@ bool bot::turn(void){
     //buy cards
     while (buys>0){
 	interact(2);
-	cout << "Es sind "<< money << " Geld vorhanden." << endl;
+	notify(7,money);
 	interact(3);
     }
     //end turn
@@ -252,7 +245,6 @@ void bot::interact(int type){
 		    take(choose_int[ret_val]);
 		}
 	    } else {
-		cout << "Leider gibt es keine Karte, die Sie kaufen können." << endl;
 		buys = 0;
 	    }
 	    break;

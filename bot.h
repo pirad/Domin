@@ -39,6 +39,10 @@ class bot{
 	int akt_player_ind;
 	player all_players[4];
 	int player_cnt;
+
+
+    private:
+	void notify(int type, int info=0, int info1=0, int info2=0);
 };
 
 #endif //BOT_H

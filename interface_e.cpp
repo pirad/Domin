@@ -52,7 +52,7 @@ int earl::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
     return retval;
 }
 
-void earl::notify (int type, int info){
+void earl::notify (int type, int info, int info1, int info2){
     return; 
 }
 
