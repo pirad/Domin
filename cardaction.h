@@ -33,6 +33,10 @@ class action_chapel: public baseaction{
 	int do_action(player* akt_player, card * desk[DESK_SIZE], int &desk_cnt, int &buys, int &actions, int &money, int &draw_cards, bool switches[SWITCH_SIZE]);
 };
 
+class action_scout : public baseaction{
+    public:
+	int do_action(player* akt_player, card * desk[DESK_SIZE], int &desk_cnt, int &buys, int &actions, int &money, int &draw_cards, bool switches[SWITCH_SIZE]);
+};
 
 /*
 class action_ : public baseaction{

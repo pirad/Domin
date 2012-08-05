@@ -4,8 +4,8 @@ create table Card(
     id smallint primary key,
     name varchar(40), 
     descr varchar(500), 
-
     price smallint, 
+
     plus_actions smallint, 
     plus_money smallint, 
     plus_buys smallint, 
@@ -80,7 +80,7 @@ insert into Card values (11, 'Markt', '', 5,
 insert into Card values (12, 'Jahrmarkt', '', 5, 
     2, 2, 1, 0, 0, 
     0, 1, 0, 0, 0, 0, 
-    1, 0, 0, 0, 0, 0, 0, 0);/*überprüfen*/
+    1, 0, 0, 0, 0, 0, 0, 0);
 insert into Card values (13, 'Laboratorium', '', 5, 
     1, 0, 0, 2, 0, 
     0, 1, 0, 0, 0, 0, 
@@ -97,3 +97,7 @@ insert into Card values (16, 'Kapelle', 'Entsorge bis zu 4 Karten aus deiner Han
     0, 0, 0, 0, 0, 
     0, 1, 0, 0, 0, 0, 
     1, 0, 0, 0, 0, 0, 0, 0);
+insert into Card values (17, 'Späher', 'Decke die obersten 4 Karten von deinem Nachziehstapel auf. Nimm alle aufgedeckten Punktekarten auf die Hand. Lege die übrigen Karten in beliebiger Reihenfolge verdeckt zurück auf deinen Nachziehstapel.', 4,
+    1, 0, 0, 0, 0, 
+    0, 1, 0, 0, 0, 0, 
+    0, 1, 0, 0, 0, 0, 0, 0);

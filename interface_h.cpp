@@ -25,9 +25,61 @@ int card_choose(card * choose[STACK_SIZE], int choose_cnt, bool none){
     return retval;
 }
 
+void cards_drawn_output(card * choose[STACK_SIZE], int choose_cnt){
+/*Sorts the Cards and counts the different types writes them on standard output*/
+    int sorted_choose[choose_cnt];
+    for (int i=0; i< choose_cnt; i++){
+	sorted_choose[i]=i;
+    }
+    int max;
+    int stelle;
+    int tausch;
+    for (int i=0; i< choose_cnt-1; i++){
+	max=1000;
+	stelle=-1;
+	for (int j=i; j<choose_cnt; j++){
+	    if (max>choose[sorted_choose[j]]->id){
+		max=choose[sorted_choose[j]]->id;
+		stelle=j;
+	    }
+	}
+	tausch=sorted_choose[i];
+	sorted_choose[i]=sorted_choose[stelle];
+	sorted_choose[stelle]=tausch;
+    }
+    for (int i=0; i< choose_cnt-1; i++){
+	max=-1;
+	stelle=-1;
+	for (int j=i; j<choose_cnt; j++){
+	    if (max<choose[sorted_choose[j]]->price){
+		max=choose[sorted_choose[j]]->price;
+		stelle=j;
+	    }
+	}
+	tausch=sorted_choose[i];
+	sorted_choose[i]=sorted_choose[stelle];
+	sorted_choose[stelle]=tausch;
+    }
+    int cnt;
+    for (int i=0; i<choose_cnt; i++){
+	cnt=1;
+	while (i<choose_cnt-1 && choose[sorted_choose[i]]->id == choose[sorted_choose[i+1]]->id){
+	    cnt++;
+	    i++;
+	}
+	cout << cnt << " " << choose[sorted_choose[i]]->name <<", ";
+    }
+    cout << endl;
+}
+
 int human::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
     int ret_val=-1;
+    char inp;
     switch(type){
+	case 0: //Cards drawn
+	    cout << "Sie haben folgende Karten auf der Hand: " << endl;
+	    cards_drawn_output(choose, choose_cnt);
+	    break;
 	case 1: //Karte ausspielen
 	    cout << "Welche Karte wollen Sie spielen? Sie haben:" << endl;
 	    ret_val=card_choose(choose,choose_cnt,true);
@@ -35,50 +87,9 @@ int human::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 	case 21: //Geld ausspielen
 	    cout << "Spielen Sie Geld aus!" << endl;
 	    cout << "Sie haben: " << endl;
-	    int sorted_choose[choose_cnt];
-	    for (int i=0; i< choose_cnt; i++){
-		sorted_choose[i]=i;
-	    }
-	    int max;
-	    int stelle;
-	    int tausch;
-	    for (int i=0; i< choose_cnt-1; i++){
-		max=1000;
-		stelle=-1;
-		for (int j=i; j<choose_cnt; j++){
-		    if (max>choose[sorted_choose[j]]->id){
-			max=choose[sorted_choose[j]]->id;
-			stelle=j;
-		    }
-		}
-		tausch=sorted_choose[i];
-		sorted_choose[i]=sorted_choose[stelle];
-		sorted_choose[stelle]=tausch;
-	    }
-	    for (int i=0; i< choose_cnt-1; i++){
-		max=-1;
-		stelle=-1;
-		for (int j=i; j<choose_cnt; j++){
-		    if (max<choose[sorted_choose[j]]->plus_money){
-			max=choose[sorted_choose[j]]->plus_money;
-			stelle=j;
-		    }
-		}
-		tausch=sorted_choose[i];
-		sorted_choose[i]=sorted_choose[stelle];
-		sorted_choose[stelle]=tausch;
-	    }
-	    int cnt;
-	    for (int i=0; i<choose_cnt; i++){
-		cnt=1;
-		while (i<choose_cnt-1 && choose[sorted_choose[i]]->id == choose[sorted_choose[i+1]]->id){
-		    cnt++;
-		    i++;
-		}
-		cout << cnt << " " << choose[sorted_choose[i]]->name <<", ";
-	    }
-	    cout << endl << "Wollen Sie alle Karten ausspielen? (j/n) " ;
-	    char inp;
+	    cards_drawn_output(choose,choose_cnt);
+	    cout << "Wollen Sie alle Karten ausspielen? (j/n) " ;
+	    inp='x';
 	    do {
 		cin >> inp;
 	    } while (inp != 'j' && inp != 'n');
@@ -118,7 +129,31 @@ int human::interact (int type, card * choose[STACK_SIZE], int choose_cnt){
 	    cout << "Welche Karte wollen Sie entsorgen? Sie haben: " << endl;
 	    ret_val=card_choose(choose,choose_cnt,true); 
 	    break;
-    }
+
+	case 117: //Scout  
+	    cout << "Folgende Karten müssen Sie zurück auf den Nachziehstapel legen: ";
+	    cards_drawn_output(choose,choose_cnt);
+	    cout << "Wollen Sie alle Karten so zurück legen, wie Sie sie genommen haben? (j/n) ";
+	    inp = 'x';
+	    do {
+		cin >> inp;
+	    } while (inp != 'j' && inp != 'n');
+	    if (inp == 'n'){
+		cout << "Welche Karte wollen Sie zuerst zurück legen? " << endl;
+		ret_val=card_choose(choose,choose_cnt,false);
+	    } else {
+		ret_val=choose_cnt;
+	    }
+	    break;
+	case 1171: //Scout next Card
+	    cout << "Welche Karte soll nun zurück auf den Ablagestapel?" << endl;
+	    ret_val=card_choose(choose,choose_cnt,false);
+	    break;
+	case 1170: //Scout point cards taken
+	    cout << "Sie haben folgende Punktekarten auf die Hand genommen: ";
+	    cards_drawn_output(choose,choose_cnt);
+	    break;
+	      }
     return ret_val;
 }
 

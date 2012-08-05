@@ -1,5 +1,5 @@
 #ifndef ANZ_CARDS
-#define ANZ_CARDS 16
+#define ANZ_CARDS 17
 #endif
 
 #include <iostream>
@@ -15,7 +15,7 @@ int main(void){
     const int anz=ANZ_CARDS;
     card st_card[anz];
     card * standard[anz];
-    int standardv[anz]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+    int standardv[anz]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
     for (int i=0; i<anz; i++){
 	st_card[i].set_card(standardv[i]);
 	standard[i] = & st_card [i];

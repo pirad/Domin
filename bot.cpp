@@ -125,6 +125,8 @@ bool bot::turn(void){
     actions=1;
     buys=1;
     money=0;
+
+    interact(0);
     //play actions
     while (action_card){
 	int action_cnt=0;
@@ -177,6 +179,9 @@ void bot::interact(int type){
     int choose_int[STACK_SIZE];
     int ret_val;
     switch(type){
+	case 0: //cards drawn
+	    akt_player->decision->interact(type,akt_player->hand,akt_player->hand_cnt);
+	    break;
 	case 1://play action Card 
 	    for (int i=0; i<akt_player->hand_cnt; i++){
 		if (akt_player->hand[i]->type[1]){
